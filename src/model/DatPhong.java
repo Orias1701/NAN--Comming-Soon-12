@@ -9,6 +9,7 @@ public class DatPhong {
     private int maHoaDon;
     private int maNhanVien;
     private int maPhong;
+    private int maKhachHang; // Added to support web view
 
     private Timestamp ngayDatPhong;
     private Timestamp ngayNhanPhong;
@@ -49,6 +50,7 @@ public class DatPhong {
     public int getMaHoaDon() { return maHoaDon; }
     public int getMaNhanVien() { return maNhanVien; }
     public int getMaPhong() { return maPhong; }
+    public int getMaKhachHang() { return maKhachHang; }
 
     public Timestamp getNgayDatPhong() { return ngayDatPhong; }
     public Timestamp getNgayNhanPhong() { return ngayNhanPhong; }
@@ -70,6 +72,7 @@ public class DatPhong {
     public void setMaHoaDon(int maHoaDon) { this.maHoaDon = maHoaDon; }
     public void setMaNhanVien(int maNhanVien) { this.maNhanVien = maNhanVien; }
     public void setMaPhong(int maPhong) { this.maPhong = maPhong; }
+    public void setMaKhachHang(int maKhachHang) { this.maKhachHang = maKhachHang; }
 
     public void setNgayDatPhong(Timestamp ngayDatPhong) { this.ngayDatPhong = ngayDatPhong; }
     public void setNgayNhanPhong(Timestamp ngayNhanPhong) { this.ngayNhanPhong = ngayNhanPhong; }

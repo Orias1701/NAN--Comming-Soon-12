@@ -12,8 +12,10 @@ public class ThietBiPhong {
     private String tenThietBi;
 
     public String getSoPhong() { return soPhong; }
+    public String getTenPhong() { return soPhong; }
     public String getTenThietBi() { return tenThietBi; }
     public void setSoPhong(String so) { this.soPhong = so; }
+    public void setTenPhong(String ten) { this.soPhong = ten; }
     public void setTenThietBi(String ten) { this.tenThietBi = ten; }
 
     public ThietBiPhong() {}
