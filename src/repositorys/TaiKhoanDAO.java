@@ -9,7 +9,7 @@ import model.NhanVien;
 import model.TaiKhoan;
 import model.VaiTro;
 
-public class TaiKhoanDAO {
+public class TaiKhoanDao {
 
     public List<TaiKhoan> getAll() {
         List<TaiKhoan> list = new ArrayList<>();

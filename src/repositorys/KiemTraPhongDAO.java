@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.KiemTraPhong;
 
-public class KiemTraPhongDAO {
+public class KiemTraPhongDao {
 
     // Lấy tất cả
     public List<KiemTraPhong> getAll() {

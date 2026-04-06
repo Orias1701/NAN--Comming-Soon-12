@@ -7,7 +7,7 @@ import java.util.List;
 import config.DBConnection;
 import model.VaiTro;
 
-public class VaiTroDAO {
+public class VaiTroDao {
 
     public List<VaiTro> getAll() {
         List<VaiTro> list = new ArrayList<>();

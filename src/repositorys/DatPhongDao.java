@@ -16,7 +16,7 @@ public class DatPhongDao {
         List<DatPhong> list = new ArrayList<>();
 
         String sql = """
-            SELECT dp.*, kh.tenKhachHang, p.soPhong 
+            SELECT dp.*, kh.tenKhachHang, kh.maKhachHang, p.soPhong 
             FROM a_datphong dp
             JOIN z_hoadon hd ON dp.maHoaDon = hd.maHoaDon
             JOIN x_khachhang kh ON hd.maKhachHang = kh.maKhachHang
@@ -44,6 +44,7 @@ public class DatPhongDao {
                         rs.getBigDecimal("tienPhat")
                 );
                 dp.setTenKhachHang(rs.getString("tenKhachHang"));
+                dp.setMaKhachHang(rs.getInt("maKhachHang"));
                 dp.setSoPhong(rs.getString("soPhong"));
                 list.add(dp);
             }
@@ -57,7 +58,7 @@ public class DatPhongDao {
     // GET BY ID
     public DatPhong getById(int id) {
         String sql = """
-            SELECT dp.*, kh.tenKhachHang, p.soPhong 
+            SELECT dp.*, kh.tenKhachHang, kh.maKhachHang, p.soPhong 
             FROM a_datphong dp
             JOIN z_hoadon hd ON dp.maHoaDon = hd.maHoaDon
             JOIN x_khachhang kh ON hd.maKhachHang = kh.maKhachHang
@@ -84,6 +85,7 @@ public class DatPhongDao {
                             rs.getBigDecimal("tienPhat")
                     );
                     dp.setTenKhachHang(rs.getString("tenKhachHang"));
+                    dp.setMaKhachHang(rs.getInt("maKhachHang"));
                     dp.setSoPhong(rs.getString("soPhong"));
                     return dp;
                 }

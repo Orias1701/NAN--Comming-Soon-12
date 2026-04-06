@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List; // Import cần thiết
 import model.LoaiPhong;
 
-public class LoaiPhongDAO {
+public class LoaiPhongDao {
 
     public List<LoaiPhong> getAll() {
         List<LoaiPhong> list = new ArrayList<>();

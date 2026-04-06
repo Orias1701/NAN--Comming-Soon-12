@@ -7,7 +7,7 @@ import java.util.List;
 import config.DBConnection;
 import model.NhanVien;
 
-public class NhanVienDAO {
+public class NhanVienDao {
 
     public List<NhanVien> getAll() {
         List<NhanVien> list = new ArrayList<>();

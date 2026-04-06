@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.KiemTraChiTiet;
 
-public class KiemTraChiTietDAO {
+public class KiemTraChiTietDao {
 
     private Connection conn = DBConnection.getConnection();
 

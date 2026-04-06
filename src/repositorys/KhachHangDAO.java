@@ -7,7 +7,7 @@ import java.util.List;
 import config.DBConnection;
 import model.KhachHang;
 
-public class KhachHangDAO {
+public class KhachHangDao {
 
     public List<KhachHang> getAll() {
         List<KhachHang> list = new ArrayList<>();

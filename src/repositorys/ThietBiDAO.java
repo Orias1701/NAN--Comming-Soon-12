@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ThietBi;
 
-public class ThietBiDAO {
+public class ThietBiDao {
 
     private Connection conn = DBConnection.getConnection();
 
