@@ -8,27 +8,27 @@ import repository.DatPhongDao;
 
 public class DatPhongService {
 
-    private DatPhongDao repo = new DatPhongDao();
+    private final DatPhongDao dao = new DatPhongDao();
 
     public List<DatPhong> getAll() {
-        return repo.getAll();
+        return dao.getAll();
     }
 
     public boolean add(DatPhong dp) {
-        return repo.add(dp);
+        return dao.add(dp);
     }
 
     public boolean delete(int id) {
-        return repo.delete(id);
+        return dao.delete(id);
     }
 
     // ✅ Lấy 1 đặt phòng theo id
     public DatPhong getById(int id) {
-        return repo.getById(id);
+        return dao.getById(id);
     }
 
     // ✅ Trả phòng
-    public boolean traPhong(int id, Timestamp ngayTra, BigDecimal tienPhong, BigDecimal tienPhat) { // Cập nhật kiểu tham số
-        return repo.traPhong(id, ngayTra, tienPhong, tienPhat);
+    public boolean traPhong(int id, Timestamp ngayTra, BigDecimal tienPhong, BigDecimal tienPhat) {
+        return dao.traPhong(id, ngayTra, tienPhong, tienPhat);
     }
 }
