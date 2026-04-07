@@ -2,11 +2,11 @@ package service;
 
 import java.util.List;
 import model.ThietBi;
-import repository.ThietBiDAO;
+import repository.ThietBiDao;
 
 public class ThietBiService {
 
-    private ThietBiDAO dao = new ThietBiDAO();
+    private ThietBiDao dao = new ThietBiDao();
 
     // Lấy tất cả thiết bị
     public List<ThietBi> getAll() {
