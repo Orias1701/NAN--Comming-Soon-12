@@ -39,8 +39,8 @@
                         data-id="${dp.getMaDatPhong()}" 
                         data-makhach="${dp.getMaKhachHang()}"
                         data-maphong="${dp.getMaPhong()}"
-                        data-nhan="${dp.getNgayNhanPhong().toString().substring(0, 16).replace(' ', 'T')}"
-                        data-hentra="${dp.getNgayHenTra().toString().substring(0, 16).replace(' ', 'T')}"
+                        data-nhan="${dp.getNgayNhanPhong() != null ? dp.getNgayNhanPhong().toString().substring(0, 16).replace(' ', 'T') : ''}"
+                        data-hentra="${dp.getNgayHenTra() != null ? dp.getNgayHenTra().toString().substring(0, 16).replace(' ', 'T') : ''}"
                         data-trangthai="${dp.getNgayTraPhong() != null ? 'Đã trả' : 'Chưa trả'}">
                         <td>${dp.getMaDatPhong()}</td>
                         <td>${dp.getTenKhachHang()}</td>
