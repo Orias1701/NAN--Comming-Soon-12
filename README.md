@@ -9,10 +9,10 @@ APP--Hotel-NoRest/
 ├─ src/
 │  ├─ config/           # Cấu hình kết nối DB (DBConnection.java)
 │  ├─ controller/       # Các thực thể dữ liệu (POJO)
-│  ├─ exception/        # Lớp DAO (Truy xuất dữ liệu JDBC)
+│  ├─ exception/        # Lớp Dao (Truy xuất dữ liệu JDBC)
 │  ├─ model/            # Các thực thể dữ liệu (POJO)
-│  ├─ repository/       # Lớp DAO (Truy xuất dữ liệu JDBC)
-│  ├─ resources/        # Lớp DAO (Truy xuất dữ liệu JDBC)
+│  ├─ repository/       # Lớp Dao (Truy xuất dữ liệu JDBC)
+│  ├─ resources/        # Lớp Dao (Truy xuất dữ liệu JDBC)
 │  ├─ service/          # Lớp Xử lý nghiệp vụ (Business Logic)
 │  ├─ servlet/          # Lớp Điều phối Web (Controllers)
 │  ├─ util/             # Lớp Điều phối Web (Controllers)
