@@ -2,11 +2,11 @@ package service;
 
 import java.util.List;
 import model.ThietBiPhong;
-import repository.ThietBiPhongDAO;
+import repository.ThietBiPhongDao;
 
 public class ThietBiPhongService {
 
-    private ThietBiPhongDAO dao = new ThietBiPhongDAO();
+    private ThietBiPhongDao dao = new ThietBiPhongDao();
 
     public List<ThietBiPhong> getAll() {
         return dao.getAll();
