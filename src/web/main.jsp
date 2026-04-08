@@ -76,13 +76,31 @@
         window.addEventListener('scroll', function() {}); // placeholder to ensure DOM is ready? 
         // Actually window.onload is fine.
         window.onload = function() {
+            const initialView = "${initialView}";
             const role = document.getElementById('app-config').getAttribute('data-role');
-            if (role === '1') {
-                loadModule('home', 'Trang chủ');
-            } else if (role === '3') {
-                loadModule('dat-phong', 'Đặt phòng');
+
+            if (initialView && initialView !== "") {
+                // Find corresponding title from sidebar to maintain highlighting
+                let title = "";
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    const onclick = item.getAttribute('onclick');
+                    if (onclick && onclick.includes("'" + initialView + "'")) {
+                        const parts = onclick.split("'");
+                        if (parts.length >= 4) title = parts[3];
+                    }
+                });
+                
+                loadModule(initialView, title);
             } else {
-                loadModule('kiem-tra', 'Kiểm tra phòng');
+                // Default view based on role
+                if (role === '1') {
+                    loadModule('home', 'Trang chủ');
+                } else if (role === '3') {
+                    loadModule('dat-phong', 'Đặt phòng');
+                } else {
+                    loadModule('kiem-tra', 'Kiểm tra phòng');
+                }
             }
         };
     </script>
