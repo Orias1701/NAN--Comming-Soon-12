@@ -107,9 +107,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-spec</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
         </dependency>
 
         <!-- JUnit for Testing -->
@@ -177,13 +182,14 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.53.v20231009</version>
+                <version>10.0.20</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
                         <resourceBase>${project.basedir}/src/web</resourceBase>
+                        <webInfIncludeJarPattern>^((?!taglibs-standard-impl).)*$</webInfIncludeJarPattern>
                     </webApp>
-                    <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <scan>2</scan>
                 </configuration>
             </plugin>
         </plugins>
