@@ -76,31 +76,25 @@
         window.addEventListener('scroll', function() {}); // placeholder to ensure DOM is ready? 
         // Actually window.onload is fine.
         window.onload = function() {
-            const initialView = "${initialView}";
             const role = document.getElementById('app-config').getAttribute('data-role');
-
-            if (initialView && initialView !== "") {
-                // Find corresponding title from sidebar to maintain highlighting
-                let title = "";
+            const params = new URLSearchParams(window.location.search);
+            const viewParam = params.get('view');
+            
+            if (viewParam) {
+                let title = '';
                 const navItems = document.querySelectorAll('.nav-item');
                 navItems.forEach(item => {
-                    const onclick = item.getAttribute('onclick');
-                    if (onclick && onclick.includes("'" + initialView + "'")) {
-                        const parts = onclick.split("'");
-                        if (parts.length >= 4) title = parts[3];
+                    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("('" + viewParam + "'")) {
+                        title = item.innerText;
                     }
                 });
-                
-                loadModule(initialView, title);
+                loadModule(viewParam, title || 'Hệ thống');
+            } else if (role === '1') {
+                loadModule('home', 'Trang chủ');
+            } else if (role === '3') {
+                loadModule('dat-phong', 'Đặt phòng');
             } else {
-                // Default view based on role
-                if (role === '1') {
-                    loadModule('home', 'Trang chủ');
-                } else if (role === '3') {
-                    loadModule('dat-phong', 'Đặt phòng');
-                } else {
-                    loadModule('kiem-tra', 'Kiểm tra phòng');
-                }
+                loadModule('kiem-tra', 'Kiểm tra phòng');
             }
         };
     </script>
