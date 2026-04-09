@@ -4,40 +4,51 @@
 
 <div class="section-title">ĐẶT PHÒNG</div>
 
+<style>
+    .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+    .status-paid { background-color: #e6f7ef; color: var(--excel-green); border: 1px solid var(--excel-green); }
+    .status-unpaid { background-color: #fff0f0; color: #ff4d4d; border: 1px solid #ff4d4d; }
+</style>
+
 <div style="padding: 10px 25px;">
-    <!-- Filter Panel -->
-    <div class="filter-panel">
-        <label>Tìm kiếm:</label>
-        <input type="text" id="txtSearchDatPhong" class="rounded-input" placeholder="Nhập tên khách hoặc số phòng..." onkeyup="filterDatPhongTable()">
-        
-        <label style="margin-left: 20px;">Lọc theo:</label>
-        <select id="cboFilterDatPhong" class="rounded-input" onchange="filterDatPhongTable()">
-            <option value="all">Tất cả</option>
-            <option value="khachHang">Khách hàng</option>
-            <option value="phong">Phòng</option>
-        </select>
+    <!-- Toolbar -->
+    <div class="toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px 25px; background-color: white; border: 1px solid var(--color-border); border-radius: 10px;">
+        <div class="search-box">
+            <label style="margin-right: 10px; font-weight: bold;">Tìm kiếm:</label>
+            <input type="text" id="txtSearchDatPhong" class="rounded-input" placeholder="Nhập tên khách hoặc số phòng..." onkeyup="filterDatPhongTable()" style="width: 280px;">
+            
+            <label style="margin-left: 20px; margin-right: 10px; font-weight: bold;">Lọc theo:</label>
+            <select id="cboFilterDatPhong" class="rounded-input" onchange="filterDatPhongTable()">
+                <option value="all">Tất cả</option>
+                <option value="khachHang">Khách hàng</option>
+                <option value="phong">Phòng</option>
+            </select>
+        </div>
+        <button class="btn-swing btn-primary" onclick="openDatPhongAdd()">+ Đặt phòng</button>
     </div>
 
     <!-- Table Content -->
-    <div class="swing-table-container" style="max-height: 350px; overflow-y: auto; padding: 20px 0;">
+    <div class="swing-table-container" style="max-height: calc(100vh - 220px); overflow-y: auto; padding: 0;">
         <table class="swing-table" id="tblDatPhong">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Khách hàng</th>
                     <th>Phòng</th>
-                    <th>Nhận</th>
+                    <th>Ngày nhận</th>
                     <th>Hẹn trả</th>
                     <th>Ngày trả</th>
                     <th>Tiền phòng</th>
                     <th>Tiền phạt</th>
+                    <th style="width: 110px; text-align: center;">Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="dp" items="${dataList}">
-                    <tr onclick="onDatPhongRowClick(this)" 
+                    <tr onclick="openDatPhongView(this.dataset)" 
                         data-id="${dp.getMaDatPhong()}" 
                         data-makhach="${dp.getMaKhachHang()}"
+                        data-sophong="${dp.getSoPhong()}"
                         data-maphong="${dp.getMaPhong()}"
                         data-nhan="${dp.getNgayNhanPhong() != null ? dp.getNgayNhanPhong().toString().substring(0, 16).replace(' ', 'T') : ''}"
                         data-hentra="${dp.getNgayHenTra() != null ? dp.getNgayHenTra().toString().substring(0, 16).replace(' ', 'T') : ''}"
@@ -50,101 +61,26 @@
                         <td><fmt:formatDate value="${dp.getNgayTraPhong()}" pattern="dd/MM/yyyy HH:mm" /></td>
                         <td><fmt:formatNumber value="${dp.getTienPhong()}" type="currency" currencyCode="VND" /></td>
                         <td><fmt:formatNumber value="${dp.getTienPhat()}" type="currency" currencyCode="VND" /></td>
+                        <td style="text-align: center;">
+                            <c:choose>
+                                <c:when test="${dp.getNgayTraPhong() != null}">
+                                    <span class="status-badge status-paid">Đã trả</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="status-badge status-unpaid">Chưa trả</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
-
-    <!-- Input Form (TitledBorder replication) -->
-    <div style="margin-top: 30px; border: 1px solid var(--excel-green); border-radius: 10px; padding: 25px; position: relative; background: white;">
-        <span style="position: absolute; top: -12px; left: 20px; background: white; padding: 0 10px; color: var(--excel-green); font-weight: bold; font-size: 16px;">
-            Chi tiết đặt phòng
-        </span>
-        
-        <form id="frmDatPhong" action="dat-phong-data" method="post">
-            <input type="hidden" id="dpAction" name="action" value="add">
-            <input type="hidden" id="maDatPhong" name="maDatPhong">
-            
-            <div style="display: grid; grid-template-columns: 1fr 2fr 1fr 2fr; gap: 20px; align-items: center;">
-                <label>Khách hàng:</label>
-                <select id="maKhachHang" name="maKhachHang" class="rounded-input" required>
-                    <c:forEach var="kh" items="${listKhachHang}">
-                        <option value="${kh.getMaKhachHang()}">${kh.getTenKhachHang()}</option>
-                    </c:forEach>
-                </select>
-                
-                <label>Phòng (Trống):</label>
-                <select id="maPhong" name="maPhong" class="rounded-input" required>
-                    <c:forEach var="p" items="${listPhongTrong}">
-                        <option value="${p.getMaPhong()}">${p.getSoPhong()}</option>
-                    </c:forEach>
-                </select>
-
-                <label>Ngày nhận:</label>
-                <input type="datetime-local" id="ngayNhan" name="ngayNhan" class="rounded-input" required>
-                
-                <label>Ngày hẹn trả:</label>
-                <input type="datetime-local" id="ngayHenTra" name="ngayHenTra" class="rounded-input" required>
-            </div>
-
-            <!-- Button Panel -->
-            <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-                <button type="submit" onclick="document.getElementById('dpAction').value='add'" class="btn-swing btn-primary">Đặt phòng</button>
-                <button type="submit" onclick="document.getElementById('dpAction').value='checkout'" class="btn-swing btn-warning" style="color: white;">Trả phòng</button>
-                <button type="submit" onclick="document.getElementById('dpAction').value='delete'" class="btn-swing btn-danger">Hủy đặt</button>
-                <button type="button" onclick="clearDatPhongForm()" class="btn-swing" style="background-color: #6c757d; color: white;">Làm mới</button>
-            </div>
-        </form>
-    </div>
 </div>
 
+<jsp:include page="dat-phong-form.jsp" />
+
 <script>
-/**
- * Handle table selection
- */
-function onDatPhongRowClick(row) {
-    // Highlight selection
-    const rows = document.querySelectorAll('#tblDatPhong tbody tr');
-    rows.forEach(r => r.style.backgroundColor = '');
-    row.style.backgroundColor = 'var(--excel-light-green)';
-
-    // Populate form
-    document.getElementById('maDatPhong').value = row.dataset.id;
-    document.getElementById('maKhachHang').value = row.dataset.makhach;
-    
-    // Add existing room to select if it's not there (booked rooms aren't in listPhongTrong)
-    const roomSelect = document.getElementById('maPhong');
-    let roomExists = false;
-    for (let i = 0; i < roomSelect.options.length; i++) {
-        if (roomSelect.options[i].value === row.dataset.maphong) {
-            roomExists = true;
-            break;
-        }
-    }
-    
-    if (!roomExists) {
-        const option = document.createElement("option");
-        option.text = row.cells[2].innerText;
-        option.value = row.dataset.maphong;
-        roomSelect.add(option);
-    }
-    
-    roomSelect.value = row.dataset.maphong;
-    document.getElementById('ngayNhan').value = row.dataset.nhan;
-    document.getElementById('ngayHenTra').value = row.dataset.hentra;
-}
-
-function clearDatPhongForm() {
-    document.getElementById('frmDatPhong').reset();
-    document.getElementById('maDatPhong').value = '';
-    const rows = document.querySelectorAll('#tblDatPhong tbody tr');
-    rows.forEach(r => r.style.backgroundColor = '');
-}
-
-/**
- * Basic client-side search filtering
- */
 function filterDatPhongTable() {
     const key = document.getElementById('txtSearchDatPhong').value.toLowerCase();
     const type = document.getElementById('cboFilterDatPhong').value;
