@@ -22,13 +22,14 @@ public class DatPhong {
 
     private String tenKhachHang;
     private String soPhong;
+    private String tenNhanVien;
 
     public DatPhong() {}
 
     public DatPhong(int maDatPhong, int maHoaDon, int maNhanVien, int maPhong,
                     Timestamp ngayDatPhong, Timestamp ngayNhanPhong, Timestamp ngayHenTra,
                     Timestamp ngayTraPhong, Timestamp ngayThanhToan,
-                    BigDecimal tienPhong, BigDecimal tienPhat) { // Cập nhật kiểu dữ liệu trong constructor
+                    BigDecimal tienPhong, BigDecimal tienPhat) { // Restored constructor
 
         this.maDatPhong = maDatPhong;
         this.maHoaDon = maHoaDon;
@@ -63,9 +64,17 @@ public class DatPhong {
 
     public String getTenKhachHang() { return tenKhachHang; }
     public String getSoPhong() { return soPhong; }
+    public String getTenNhanVien() { return tenNhanVien; }
+
+    public String getTrangThai() {
+        if (ngayTraPhong == null) return "Chưa trả";
+        if (tienPhong != null && tienPhong.compareTo(BigDecimal.ZERO) == 0) return "Đã hủy";
+        return "Đã trả";
+    }
 
     public void setTenKhachHang(String ten) { this.tenKhachHang = ten; }
     public void setSoPhong(String so) { this.soPhong = so; }
+    public void setTenNhanVien(String ten) { this.tenNhanVien = ten; }
 
     // SETTERS
     public void setMaDatPhong(int maDatPhong) { this.maDatPhong = maDatPhong; }

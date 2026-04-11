@@ -2,6 +2,8 @@ package model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp; // Import BigDecimal
+import java.util.ArrayList;
+import java.util.List;
 
 public class HoaDon {
 
@@ -14,9 +16,34 @@ public class HoaDon {
     private String trangThai;
 
     private String tenKhachHang;
+    private String tenNhanVien;
+    private List<DatPhong> chiTiet = new ArrayList<>();
+
+    public List<DatPhong> getChiTiet() { return chiTiet; }
+    public void setChiTiet(List<DatPhong> list) { this.chiTiet = list; }
+
+    public String getChiTietJson() {
+        if (chiTiet == null || chiTiet.isEmpty()) return "[]";
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < chiTiet.size(); i++) {
+            DatPhong dp = chiTiet.get(i);
+            sb.append("{");
+            sb.append("\"id\":").append(dp.getMaDatPhong()).append(",");
+            sb.append("\"soPhong\":\"").append(dp.getSoPhong()).append("\",");
+            sb.append("\"tienPhong\":").append(dp.getTienPhong() != null ? dp.getTienPhong() : 0).append(",");
+            sb.append("\"tienPhat\":").append(dp.getTienPhat() != null ? dp.getTienPhat() : 0);
+            sb.append("}");
+            if (i < chiTiet.size() - 1) sb.append(",");
+        }
+        sb.append("]");
+        return sb.toString().replace("\"", "&quot;"); // Escape for HTML attribute
+    }
 
     public String getTenKhachHang() { return tenKhachHang; }
     public void setTenKhachHang(String ten) { this.tenKhachHang = ten; }
+
+    public String getTenNhanVien() { return tenNhanVien; }
+    public void setTenNhanVien(String ten) { this.tenNhanVien = ten; }
 
     public HoaDon() {
     }
