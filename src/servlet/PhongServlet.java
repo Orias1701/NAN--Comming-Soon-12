@@ -43,7 +43,7 @@ public class PhongServlet extends HttpServlet {
                 int maLoaiPhong = Integer.parseInt(request.getParameter("maLoaiPhong"));
                 String trangThai = request.getParameter("trangThai");
                 
-                Phong p = new Phong(0, soPhong, maLoaiPhong, trangThai);
+                Phong p = new Phong(0, soPhong, maLoaiPhong, null, trangThai);
                 phongService.add(p);
             } else if ("update".equals(action)) {
                 int maPhong = Integer.parseInt(request.getParameter("maPhong"));
@@ -51,11 +51,15 @@ public class PhongServlet extends HttpServlet {
                 int maLoaiPhong = Integer.parseInt(request.getParameter("maLoaiPhong"));
                 String trangThai = request.getParameter("trangThai");
                 
-                Phong p = new Phong(maPhong, soPhong, maLoaiPhong, trangThai);
+                Phong p = new Phong(maPhong, soPhong, maLoaiPhong, null, trangThai);
                 phongService.update(p);
             } else if ("delete".equals(action)) {
                 int maPhong = Integer.parseInt(request.getParameter("maPhong"));
-                phongService.delete(maPhong);
+                if (new service.DeletionCheckService().canDelete("phong", maPhong)) {
+                    phongService.delete(maPhong);
+                } else {
+                    System.out.println("⚠️ Chặn xóa Phòng #" + maPhong + " do có ràng buộc dữ liệu.");
+                }
             }
             
             // Redirect back to main?view=phong to refresh (handled by AJAX or full reload)
