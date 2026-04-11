@@ -1,19 +1,17 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <div class="section-title">TÀI KHOẢN</div>
 
-        <div style="padding: 10px 25px;">
+        <div class="p-25">
             <!-- Toolbar -->
-            <div class="toolbar"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px 25px; background-color: white; border: 1px solid var(--color-border); border-radius: 10px;">
+            <div class="toolbar flex-between mb-20 toolbar-standard">
                 <div class="search-box">
-                    <label style="margin-right: 10px; font-weight: bold;">Tìm kiếm:</label>
-                    <input type="text" id="txtSearchTK" class="rounded-input"
-                        placeholder="Nhập Username, Nhân viên hoặc Vai trò..." onkeyup="filterTKTable()"
-                        style="width: 280px;">
+                    <label class="mr-10 text-bold">Tìm kiếm:</label>
+                    <input type="text" id="txtSearchTK" class="rounded-input w-280"
+                        placeholder="Nhập Username, Nhân viên hoặc Vai trò..." onkeyup="filterTKTable()">
 
-                    <label style="margin-left: 20px; margin-right: 10px; font-weight: bold;">Lọc theo:</label>
+                    <label class="ml-20 mr-10 text-bold">Lọc theo:</label>
                     <select id="cboFilterTK" class="rounded-input" onchange="filterTKTable()">
                         <option value="all">Tất cả</option>
                         <option value="user">Username</option>
@@ -25,16 +23,15 @@
             </div>
 
             <!-- Table Content -->
-            <div class="swing-table-container" style="max-height: calc(100vh - 220px); overflow-y: auto; padding: 0;">
+            <div class="swing-table-container scroll-table-container">
                 <table class="swing-table" id="tblTK">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th class="center_cell id_cell">ID</th>
                             <th>Tài khoản</th>
                             <th>Mật khẩu</th>
                             <th>Nhân viên</th>
                             <th>Vai trò</th>
-                            <th style="width: 100px; text-align: center;">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,21 +40,11 @@
                                 data-user="${tk.getTaiKhoan()}" data-pass="${tk.getMatKhau()}"
                                 data-manv="${tk.getMaNhanVien()}" data-tennv="${tk.getTenNhanVien()}"
                                 data-mavt="${tk.getMaVaiTro()}" data-tenvt="${tk.getTenVaiTro()}">
-                                <td>${tk.getId()}</td>
+                                <td class="center_cell id_cell">${tk.getId()}</td>
                                 <td>${tk.getTaiKhoan()}</td>
                                 <td>••••••••</td>
                                 <td>${tk.getTenNhanVien()}</td>
                                 <td>${tk.getTenVaiTro()}</td>
-                                <td class="action-cell">
-                                    <form id="frmDelTK_${tk.getId()}" action="tai-khoan-data" method="post"
-                                        style="display:none;">
-                                        <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="id" value="${tk.getId()}">
-                                    </form>
-                                    <button type="button" class="btn-swing btn-danger"
-                                        style="padding: 5px 10px; font-size: 13px;"
-                                        onclick="event.stopPropagation(); confirmDelete('Bạn có chắc chắn muốn xóa tài khoản này?', 'taikhoan', this.closest('tr').dataset.id, 'frmDelTK_' + this.closest('tr').dataset.id);">Xóa</button>
-                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
