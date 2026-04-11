@@ -1,14 +1,18 @@
 :root {
-    --excel-green: #217346;
-    --excel-green-hover: #1c613b;
-    --excel-light-green: #E6F2EA;
+    --color-primary: #217346;
+    --color-primary-hover: #1c613b;
+    --color-primary-light: #dbffed;
+    --color-primary-border: #009900;
     --color-danger: #C0392B;
+    --color-danger-hover: #a02b2b;
     --color-warning: #F39C12;
+    --color-warning-hover: #d1850f;
+    --color-info: #0288d1;
+    --color-info-hover: #0277bd;
     --color-text: #323232;
     --color-bg: #F8F9FA;
     --color-border: #D2D2D2;
-    --excel-green-border: #009900;
-    --sidebar-width: 240px;
+    --sidebar-width: 200px;
 }
 
 * {
@@ -35,9 +39,11 @@ body {
 
 /* Sidebar - mimicking BoxLayout (Y) */
 .sidebar {
-    width: var(--sidebar-width);
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    flex: 0 0 var(--sidebar-width) !important;
     background-color: white;
-    border-right: 2px solid var(--excel-green);
+    border-right: 2px solid var(--color-primary);
     display: flex;
     flex-direction: column;
     z-index: 100;
@@ -50,9 +56,9 @@ body {
 }
 
 .user-info {
-    font-size: 1.1rem;
+    font-size: 0.85rem !important;
     font-weight: bold;
-    color: var(--excel-green);
+    color: var(--color-primary);
 }
 
 .sidebar-nav {
@@ -64,7 +70,7 @@ body {
     padding: 12px 20px;
     font-size: 15px;
     font-weight: 600;
-    color: var(--excel-green);
+    color: var(--color-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -77,7 +83,7 @@ body {
 }
 
 .nav-item.active {
-    background-color: var(--excel-green);
+    background-color: var(--color-primary);
     color: white;
 }
 
@@ -100,7 +106,8 @@ body {
     flex: 1;
     overflow-y: auto;
     background-color: white;
-    padding: 0;
+    padding: 20px 30px;
+    background-color: var(--color-bg);
 }
 
 /* Swing Components Replication */
@@ -122,7 +129,7 @@ body {
 
 .rounded-input {
     padding: 8px 12px;
-    border: 1px solid var(--excel-green-border);
+    border: 1px solid var(--color-primary-border);
     border-radius: 10px;
     outline: none;
     font-size: 14px;
@@ -138,12 +145,12 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--excel-green);
+    background-color: var(--color-primary);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: var(--excel-green-hover);
+    background-color: var(--color-primary-hover);
 }
 
 .btn-danger {
@@ -151,9 +158,17 @@ body {
     color: white;
 }
 
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+}
+
 .btn-warning {
     background-color: var(--color-warning);
     color: white;
+}
+
+.btn-warning:hover {
+    background-color: var(--color-warning-hover);
 }
 
 /* Table Replication */
@@ -168,20 +183,25 @@ body {
 }
 
 .swing-table th {
-    background-color: var(--excel-green);
+    background-color: var(--color-primary);
     color: white;
     text-align: left;
     padding: 12px 10px;
     font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .swing-table td {
-    padding: 10px;
+    padding: 0 10px;
+    height: 45px;
     border: 1px solid var(--color-border);
+    vertical-align: middle;
 }
 
 .swing-table tr:hover {
-    background-color: var(--excel-light-green);
+    background-color: var(--color-primary-light);
 }
 
 /* Dashboard Cards */
@@ -231,8 +251,8 @@ body {
 }
 
 .card-green {
-    border-left: 5px solid var(--excel-green);
-    color: var(--excel-green);
+    border-left: 5px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 /* Modal Overlays & Forms */
@@ -240,63 +260,529 @@ body {
     background-color: #6c757d;
     color: white;
 }
+
 .btn-secondary:hover {
     background-color: #5a6268;
 }
 
 .modal-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
+
 .modal-overlay.active {
     display: flex;
 }
+
 .modal-content {
     background: white;
     padding: 20px 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    min-width: 500px;
-    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 600px;
+    max-width: 960px;
 }
+
 .modal-header {
     font-size: 20px;
     font-weight: bold;
-    color: var(--excel-green);
+    color: var(--color-primary);
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--excel-green);
+    border-bottom: 2px solid var(--color-primary);
     padding-bottom: 10px;
 }
+
 .modal-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     margin-bottom: 25px;
 }
+
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
+
 .form-group.full-width {
     grid-column: 1 / -1;
 }
+
+.bill-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.bill-details-table th {
+    background: #f8f9fa;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.bill-details-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--color-border);
+}
+
 .form-group label {
     font-weight: 500;
 }
+
 .modal-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
+
+.id_cell {
+    width: 80px !important;
+}
+
 .action-cell {
     text-align: center;
 }
+
 .swing-table tr[onclick] {
     cursor: pointer;
+}
+
+.center_cell,
+.swing-table th.center_cell,
+.swing-table td.center_cell {
+    text-align: center !important;
+}
+
+.currency-cell,
+.swing-table th.currency-cell,
+.swing-table td.currency-cell {
+    text-align: right !important;
+    padding-right: 25px !important;
+}
+
+/* Status Badges - Pill labels */
+.status-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 100px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* Green: Trống, Đã thanh toán */
+.status-paid,
+.status-trong {
+    background-color: #e6f7ef;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+/* Yellow: Ch thanh toán / Chưa trả / Đang ở */
+.status-unpaid,
+.status-occupied {
+    background-color: #fffbef;
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
+}
+
+/* Red: Đã hủy / Bảo trì */
+.status-cancelled,
+.status-maintenance {
+    background-color: #fff0f0;
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+}
+
+/* Blue: Đã đặt */
+.status-booked {
+    background-color: #e3f2fd;
+    color: var(--color-info);
+    border: 1px solid var(--color-info);
+}
+
+/* Blue: Đang ở / Đang thuê */
+.status-thue,
+.status-dang-thue {
+    background-color: #f0f7ff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.mw-400 {
+    max-width: 480px;
+}
+
+.mw-600 {
+    max-width: 720px;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.d-inline {
+    display: inline !important;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bg-readonly {
+    background-color: #f0f0f0;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-gap-5 {
+    display: flex;
+    gap: 5px;
+}
+
+.flex-gap-10 {
+    display: flex;
+    gap: 10px;
+}
+
+.flex-gap-15 {
+    display: flex;
+    gap: 15px;
+}
+
+.p-25 {
+    padding: 15px 25px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.ml-20 {
+    margin-left: 20px;
+}
+
+.w-250 {
+    width: 250px !important;
+}
+
+.w-280 {
+    width: 280px !important;
+}
+
+.scroll-table-container {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+    padding: 0;
+}
+
+
+
+.toolbar-standard {
+    padding: 15px 25px;
+    background-color: white;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+}
+
+.account-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.info-card {
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.room-checklist-container {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    background-color: #fafafa;
+}
+
+.room-label-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.room-label-card:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.room-label-card input[type="checkbox"] {
+    cursor: pointer;
+}
+
+/* Table Modifier Classes */
+.email-cell {
+    text-align: right !important;
+}
+
+.status-cell {
+    width: 150px !important;
+}
+
+/* Module: Login */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background: #F0F2F5;
+}
+
+.login-card {
+    width: 750px;
+    height: 450px;
+    display: flex;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.login-left {
+    flex: 1;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.brand-icon {
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+.brand-name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.brand-slogan {
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.login-right {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-right .form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.login-title {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.login-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--color-primary);
+    font-size: 16px;
+    padding: 8px 0;
+    outline: none;
+    background: transparent;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.error-msg {
+    color: var(--color-danger);
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Module: Dashboard (Home) */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 160px);
+    gap: 20px;
+    padding: 10px 25px;
+}
+
+.chart-container {
+    background: #fff;
+    border-radius: 15px;
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    position: relative;
+    min-height: 250px;
+}
+
+
+/* Grid Positions for Dashboard */
+.grid-c-1-4 {
+    grid-column: 1 / 4;
+}
+
+.grid-c-4-6 {
+    grid-column: 4 / 6;
+}
+
+.grid-c-1-3 {
+    grid-column: 1 / 3;
+}
+
+.grid-c-3-6 {
+    grid-column: 3 / 6;
+}
+
+.grid-r-1-3 {
+    grid-row: 1 / 3;
+}
+
+.grid-r-3-5 {
+    grid-row: 3 / 5;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Base card from line 208 in style.css was already present. 
+   Adding the specific dashboard layout properties here. */
+.dashboard-card {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 10px !important;
+}
+
+.dashboard-card-title {
+    font-size: 14px !important;
+    margin-bottom: 5px !important;
+}
+
+.dashboard-card-desc {
+    font-size: 18px !important;
+    font-weight: bold;
 }
