@@ -9,16 +9,10 @@ public class Phong {
 
     public Phong() {}
 
-    public Phong(int id, String soPhong, int maLoaiPhong, String trangThai) {
+    public Phong(int id, String soPhong, int maLoaiPhong, String tenLoaiPhong, String trangThai) {
         this.maPhong = id;
         this.soPhong = soPhong;
         this.maLoaiPhong = maLoaiPhong;
-        this.trangThai = trangThai;
-    }
-
-    public Phong(int id, String soPhong, String tenLoaiPhong, String trangThai) {
-        this.maPhong = id;
-        this.soPhong = soPhong;
         this.tenLoaiPhong = tenLoaiPhong;
         this.trangThai = trangThai;
     }
