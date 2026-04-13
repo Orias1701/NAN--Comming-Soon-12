@@ -75,10 +75,17 @@
             openModal('modalKH');
         }
 
-        function confirmDeleteKH() {
+        async function confirmDeleteKH() {
             const id = document.getElementById('delMaKH').value;
             if (confirm('Bạn có chắc chắn muốn xóa khách hàng #' + id + '?')) {
-                document.getElementById('frmDelKH').submit();
+                const form = document.getElementById('frmDelKH');
+                const formData = new FormData(form);
+                await fetch(form.getAttribute('action'), {
+                    method: form.getAttribute('method') || 'POST',
+                    body: new URLSearchParams(formData)
+                });
+                closeModal(form.closest('.modal-overlay').id);
+                loadModule('khach-hang', 'Khách hàng');
             }
         }
 
@@ -99,7 +106,14 @@
                 if (data.isDuplicate) {
                     alert(data.message); // Inform user, do not submit
                 } else {
-                    form.submit(); // Valid! Proceed with standard form submit to Servlet
+                    // Send data silently
+                    const formData = new FormData(form);
+                    await fetch(form.getAttribute('action'), {
+                        method: form.getAttribute('method') || 'POST',
+                        body: new URLSearchParams(formData)
+                    });
+                    closeModal(form.closest('.modal-overlay').id);
+                    loadModule('khach-hang', 'Khách hàng');
                 }
             } catch (err) {
                 console.error("Validation error:", err);
